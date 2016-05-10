@@ -15,7 +15,9 @@ namespace StupidGame
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
-		public Game1 ()
+		private PlayerIndex playerOne;
+
+		public StupidGameGame ()
 		{
 			graphics = new GraphicsDeviceManager (this);
 			Content.RootDirectory = "Content";
