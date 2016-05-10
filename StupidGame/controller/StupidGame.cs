@@ -17,7 +17,7 @@ namespace StupidGame
 
 		private PlayerIndex playerOne;
 
-		public StupidGameGame ()
+		public void StupidGame ()
 		{
 			graphics = new GraphicsDeviceManager (this);
 			Content.RootDirectory = "Content";
