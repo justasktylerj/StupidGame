@@ -8,6 +8,7 @@ namespace StupidGame.Model
 	{
 		private int score;
 		private bool active;
+		private int health;
 
 		// Animation representing the player
 		public Texture2D PlayerTexture;
@@ -23,7 +24,11 @@ namespace StupidGame.Model
 		}
 
 		// Amount of hit points that player has
-		public int Health;
+		public int Health
+		{
+			get { return health; }
+			set { health = value; }
+		}
 
 		// Get the width of the player ship
 		public int Width
@@ -43,9 +48,13 @@ namespace StupidGame.Model
 			get { return score; }
 			set { score = value; }
 		}
-		public void Initialize()
+		public void Initialize(Texture2D texture, Vector2 position)
 		{
-			
+			this.active = true;
+			this.health = 100; 
+			this.score = 0;
+			this.PlayerTexture = texture;
+			this.Position = position;
 		}
 
 		public void Update()
