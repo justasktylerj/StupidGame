@@ -27,7 +27,7 @@ namespace StupidGame
 
 		internal static void RunGame ()
 		{
-			game = new Game1 ();
+			game = new StupidGame ();
 			game.Run ();
 			#if !__IOS__  && !__TVOS__
 			game.Dispose ();
