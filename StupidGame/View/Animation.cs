@@ -114,6 +114,12 @@ namespace SampleGame.View
 			// Width of a given frame
 		public Vector2 position;
 
+		public Vector2 Position
+		{
+			get { return position; }
+			set { position = value; }
+		}
+
 		public void Initialize(Texture2D texture, Vector2 position,
 				int frameWidth, int frameHeight, int frameCount,
 				int frametime, Color color, float scale, bool looping)
