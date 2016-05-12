@@ -50,7 +50,7 @@ namespace SampleGame.Controller
 			player = new Player ();
 
 			// Set a constant player move speed
-			playerMoveSpeed = 8.0f;
+			playerMoveSpeed = 2.0f;
 
 			base.Initialize ();
 		}
@@ -63,8 +63,8 @@ namespace SampleGame.Controller
 		{
 			spriteBatch = new SpriteBatch (GraphicsDevice);
 			Animation playerAnimation = new Animation();
-			Texture2D playerTexture = Content.Load<Texture2D>("Animation/shipAnimation");
-			playerAnimation.Initialize(playerTexture, Vector2.Zero, 115, 69, 8, 30, Color.White, 1f, true);
+			Texture2D playerTexture = Content.Load<Texture2D>("Animation/Imported Paladin");
+			playerAnimation.Initialize(playerTexture, Vector2.Zero, 50, 60, 6, 80, Color.White, 1f, true);
 
 			Vector2 playerPosition = new Vector2 (GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y
 				+ GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
