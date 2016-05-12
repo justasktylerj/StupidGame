@@ -4,18 +4,19 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Input;
+using SampleGame.Model;
 
-namespace StupidGame
+namespace SampleGame.Controller
 {
 	/// <summary>
 	/// This is the main type for your game.
 	/// </summary>
-	public class Game1 : Game
+	public class StupidGame : Game
 	{
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
-		private PlayerIndex playerOne;
+		private Player player;
 
 		public void StupidGame ()
 		{
@@ -33,6 +34,7 @@ namespace StupidGame
 		{
 			// TODO: Add your initialization logic here
             
+			player = new Player()
 			base.Initialize ();
 		}
 
@@ -45,6 +47,9 @@ namespace StupidGame
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch (GraphicsDevice);
 
+
+			Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X,GraphicsDevice.Viewport.TitleSafeArea.Y +GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+			player.Initialize(Content.Load<Texture2D>("player"), playerPosition);
 			//TODO: use this.Content to load your game content here 
 		}
 

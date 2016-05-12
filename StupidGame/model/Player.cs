@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace StupidGame.Model
+namespace SampleGame.Model
 {
 	public class Player
 	{
