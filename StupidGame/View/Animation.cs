@@ -10,7 +10,7 @@ namespace SampleGame.View
 		// The image representing the collection of images used for animation
 		private Texture2D spriteStrip;
 
-		public Texture2D spriteStrip
+		public Texture2D SpriteStrip
 		{
 			get { return spriteStrip; }
 			set { spriteStrip = value; }
@@ -18,7 +18,7 @@ namespace SampleGame.View
 		// The scale used to display the sprite strip
 		private float scale;
 
-		public float scale
+		public float Scale
 		{
 			get { return scale; }
 			set { scale = value; }
@@ -27,7 +27,7 @@ namespace SampleGame.View
 		// The time since we last updated the frame
 		private int elapsedTime;
 
-		public int elaspedTime
+		public int ElaspedTime
 		{
 			get { return elaspedTime; }
 			set { elaspedTime = value; }
@@ -36,7 +36,7 @@ namespace SampleGame.View
 		// The time we display a frame until the next one
 		private int frameTime;
 
-		public int frameTime
+		public int FrameTime
 		{
 			get { return frameTime; }
 			set { frameTime = value; }
@@ -45,7 +45,7 @@ namespace SampleGame.View
 		// The number of frames that the animation contains
 		private int frameCount;
 
-		public int frameCount
+		public int FrameCount
 		{
 			get { return frameCount; }
 			set { frameCount = value; }
@@ -54,7 +54,7 @@ namespace SampleGame.View
 		// The index of the current frame we are displaying
 		private int currentFrame;
 
-		public int currentFrame
+		public int CurrentFrame
 		{
 			get { return currentFrame; }
 			set { currentFrame = value; }
@@ -63,7 +63,7 @@ namespace SampleGame.View
 		// The color of the frame we will be displaying
 		private Color color;
 
-		public Color color
+		public Color Color
 		{
 			get { return color; }
 			set { color = value; }
@@ -76,39 +76,45 @@ namespace SampleGame.View
 		Rectangle destinationRect = new Rectangle();
 
 		// Width of a given frame
-		public int FrameWidth;
+		public int frameWidth;
 
 		public int FrameWidth
 		{
-			get { return FrameWidth; }
-			set { FrameWidth = value; }
+			get { return frameWidth; }
+			set { frameWidth = value; }
 		}
 
 			// Height of a given frame
-		public int FrameHeight;
+		public int frameHeight;
 
 		public int FrameHeight
 		{
-			get { return FrameHeight; }
-			set { FrameHeight = value; }
+			get { return frameHeight; }
+			set { frameHeight = value; }
 		}
 
 			// The state of the Animation
-		public bool Active;
+		public bool active;
 
 		public bool Active
 		{
-			get { return Active; }
-			set { Active = value; }
+			get { return active; }
+			set { active = value; }
 		}
 
 			// Determines if the animation will keep playing or deactivate after one run
-			public bool Looping;
+		public bool looping;
+
+		public bool Looping
+		{
+			get { return looping; }
+			set { looping = value; }
+		}
 
 			// Width of a given frame
-			public Vector2 Position;
+		public Vector2 position;
 
-			public void Initialize(Texture2D texture, Vector2 position,
+		public void Initialize(Texture2D texture, Vector2 position,
 				int frameWidth, int frameHeight, int frameCount,
 				int frametime, Color color, float scale, bool looping)
 			{
@@ -179,7 +185,7 @@ namespace SampleGame.View
 				}
 			}
 
-		public void Animation()
+		public Animation ()
 		{
 
 		}
