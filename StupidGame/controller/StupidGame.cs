@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Input;
 using SampleGame.Model;
+using SampleGame.View;
 
 namespace SampleGame.Controller
 {
@@ -60,7 +61,6 @@ namespace SampleGame.Controller
 		/// </summary>
 		protected override void LoadContent ()
 		{
-			// Load the player resources
 			Animation playerAnimation = new Animation();
 			Texture2D playerTexture = Content.Load<Texture2D>("shipAnimation");
 			playerAnimation.Initialize(playerTexture, Vector2.Zero, 115, 69, 8, 30, Color.White, 1f, true);
@@ -68,6 +68,7 @@ namespace SampleGame.Controller
 			Vector2 playerPosition = new Vector2 (GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y
 				+ GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
 			player.Initialize(playerAnimation, playerPosition);
+
 		}
 
 		private void UpdatePlayer(GameTime gameTime)

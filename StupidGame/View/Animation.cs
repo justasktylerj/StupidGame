@@ -27,10 +27,10 @@ namespace SampleGame.View
 		// The time since we last updated the frame
 		private int elapsedTime;
 
-		public int ElaspedTime
+		public int ElapsedTime
 		{
-			get { return elaspedTime; }
-			set { elaspedTime = value; }
+			get { return elapsedTime; }
+			set { elapsedTime = value; }
 		}
 
 		// The time we display a frame until the next one
