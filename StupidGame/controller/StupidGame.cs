@@ -18,7 +18,8 @@ namespace SampleGame.Controller
 
 		private Player player;
 
-		public void StupidGame ()
+
+		public StupidGame ()
 		{
 			graphics = new GraphicsDeviceManager (this);
 			Content.RootDirectory = "Content";
@@ -34,7 +35,7 @@ namespace SampleGame.Controller
 		{
 			// TODO: Add your initialization logic here
             
-			player = new Player()
+			player = new Player ();
 			base.Initialize ();
 		}
 
@@ -49,7 +50,7 @@ namespace SampleGame.Controller
 
 
 			Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X,GraphicsDevice.Viewport.TitleSafeArea.Y +GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-			player.Initialize(Content.Load<Texture2D>("player"), playerPosition);
+			player.Initialize(Content.Load<Texture2D>("Texture/player"), playerPosition);
 			//TODO: use this.Content to load your game content here 
 		}
 
@@ -81,7 +82,15 @@ namespace SampleGame.Controller
 			graphics.GraphicsDevice.Clear (Color.LavenderBlush);
             
 			//TODO: Add your drawing code here
-            
+			// Start drawing
+			spriteBatch.Begin();
+
+			// Draw the Player
+			player.Draw(spriteBatch);
+
+			// Stop drawing
+			spriteBatch.End();
+
 			base.Draw (gameTime);
 		}
 	}

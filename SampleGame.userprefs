@@ -2,13 +2,15 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="StupidGame/Controller/StupidGame.cs">
     <Files>
-      <File FileName="StupidGame/Controller/StupidGame.cs" Line="21" Column="15" />
-      <File FileName="StupidGame/Model/Player.cs" Line="3" Column="40" />
-      <File FileName="StupidGame/Controller/Program.cs" Line="16" Column="21" />
+      <File FileName="StupidGame/Controller/StupidGame.cs" Line="38" Column="23" />
+      <File FileName="StupidGame/Model/Player.cs" Line="64" Column="4" />
+      <File FileName="StupidGame/Controller/Program.cs" Line="15" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/tjar2074/Documents/GameDev/StupidGame/StupidGame/Controller/StupidGame.cs" line="38" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
