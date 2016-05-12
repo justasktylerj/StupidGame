@@ -61,8 +61,9 @@ namespace SampleGame.Controller
 		/// </summary>
 		protected override void LoadContent ()
 		{
+			spriteBatch = new SpriteBatch (GraphicsDevice);
 			Animation playerAnimation = new Animation();
-			Texture2D playerTexture = Content.Load<Texture2D>("shipAnimation");
+			Texture2D playerTexture = Content.Load<Texture2D>("Animation/shipAnimation");
 			playerAnimation.Initialize(playerTexture, Vector2.Zero, 115, 69, 8, 30, Color.White, 1f, true);
 
 			Vector2 playerPosition = new Vector2 (GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y
@@ -74,6 +75,7 @@ namespace SampleGame.Controller
 		private void UpdatePlayer(GameTime gameTime)
 		{
 
+			player.Update(gameTime);
 			// Get Thumbstick Controls
 			player.Position.X += currentGamePadState.ThumbSticks.Left.X *playerMoveSpeed;
 			player.Position.Y -= currentGamePadState.ThumbSticks.Left.Y *playerMoveSpeed;
