@@ -7,43 +7,100 @@ namespace SampleGame.View
 {
 	public class Animation
 	{
-		public Animation ()
+		// The image representing the collection of images used for animation
+		private Texture2D spriteStrip;
+
+		public Texture2D spriteStrip
 		{
-			// The image representing the collection of images used for animation
-			Texture2D spriteStrip;
+			get { return spriteStrip; }
+			set { spriteStrip = value; }
+		}
+		// The scale used to display the sprite strip
+		private float scale;
 
-			// The scale used to display the sprite strip
-			float scale;
+		public float scale
+		{
+			get { return scale; }
+			set { scale = value; }
+		}
 
-			// The time since we last updated the frame
-			int elapsedTime;
+		// The time since we last updated the frame
+		private int elapsedTime;
 
-			// The time we display a frame until the next one
-			int frameTime;
+		public int elaspedTime
+		{
+			get { return elaspedTime; }
+			set { elaspedTime = value; }
+		}
 
-			// The number of frames that the animation contains
-			int frameCount;
+		// The time we display a frame until the next one
+		private int frameTime;
 
-			// The index of the current frame we are displaying
-			int currentFrame;
+		public int frameTime
+		{
+			get { return frameTime; }
+			set { frameTime = value; }
+		}
 
-			// The color of the frame we will be displaying
-			Color color;
+		// The number of frames that the animation contains
+		private int frameCount;
 
-			// The area of the image strip we want to display
-			Rectangle sourceRect = new Rectangle();
+		public int frameCount
+		{
+			get { return frameCount; }
+			set { frameCount = value; }
+		}
 
-			// The area where we want to display the image strip in the game
-			Rectangle destinationRect = new Rectangle();
+		// The index of the current frame we are displaying
+		private int currentFrame;
 
-			// Width of a given frame
-			public int FrameWidth;
+		public int currentFrame
+		{
+			get { return currentFrame; }
+			set { currentFrame = value; }
+		}
+
+		// The color of the frame we will be displaying
+		private Color color;
+
+		public Color color
+		{
+			get { return color; }
+			set { color = value; }
+		}
+				
+		// The area of the image strip we want to display
+		private Rectangle sourceRect = new Rectangle();
+
+		// The area where we want to display the image strip in the game
+		Rectangle destinationRect = new Rectangle();
+
+		// Width of a given frame
+		public int FrameWidth;
+
+		public int FrameWidth
+		{
+			get { return FrameWidth; }
+			set { FrameWidth = value; }
+		}
 
 			// Height of a given frame
-			public int FrameHeight;
+		public int FrameHeight;
+
+		public int FrameHeight
+		{
+			get { return FrameHeight; }
+			set { FrameHeight = value; }
+		}
 
 			// The state of the Animation
-			public bool Active;
+		public bool Active;
+
+		public bool Active
+		{
+			get { return Active; }
+			set { Active = value; }
+		}
 
 			// Determines if the animation will keep playing or deactivate after one run
 			public bool Looping;
@@ -74,14 +131,57 @@ namespace SampleGame.View
 				// Set the Animation to active by default
 				Active = true;
 			}
-			public void Update()
+			public void Update(GameTime gameTime)
 			{
-				
+				// Do not update the game if we are not active
+				if (Active == false)
+					return;
+
+				// Update the elapsed time
+				elapsedTime += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+				// If the elapsed time is larger than the frame time
+				// we need to switch frames
+				if (elapsedTime > frameTime)
+				{
+					// Move to the next frame
+					currentFrame++;
+
+					// If the currentFrame is equal to frameCount reset currentFrame to zero
+					if (currentFrame == frameCount)
+					{
+						currentFrame = 0;
+						// If we are not looping deactivate the animation
+						if (Looping == false)
+							Active = false;
+					}
+
+					// Reset the elapsed time to zero
+					elapsedTime = 0;
+				}
+
+				// Grab the correct frame in the image strip by multiplying the currentFrame index by the frame width
+				sourceRect = new Rectangle(currentFrame * FrameWidth, 0, FrameWidth, FrameHeight);
+
+				// Grab the correct frame in the image strip by multiplying the currentFrame index by the frame width
+				destinationRect = new Rectangle((int)Position.X - (int)(FrameWidth * scale) / 2,
+					(int)Position.Y - (int)(FrameHeight * scale) / 2,
+					(int)(FrameWidth * scale),
+					(int)(FrameHeight * scale));
 			}
-			public void Draw()
+			// Draw the Animation Strip
+			public void Draw(SpriteBatch spriteBatch)
 			{
-				
+				// Only draw the animation when we are active
+				if (Active)
+				{
+					spriteBatch.Draw(spriteStrip, destinationRect, sourceRect, color);
+				}
 			}
+
+		public void Animation()
+		{
+
 		}
 	}
 }
