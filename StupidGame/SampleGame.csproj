@@ -52,6 +52,7 @@
     <Compile Include="Controller\Program.cs" />
     <Compile Include="Controller\StupidGame.cs" />
     <Compile Include="Model\Player.cs" />
+    <Compile Include="View\Animation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
@@ -72,5 +73,6 @@
   <ItemGroup>
     <Folder Include="Controller\" />
     <Folder Include="Model\" />
+    <Folder Include="View\" />
   </ItemGroup>
 </Project>
