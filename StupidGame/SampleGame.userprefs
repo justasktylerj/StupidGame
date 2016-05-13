@@ -1,13 +1,17 @@
 ﻿<Properties StartupItem="SampleGame.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controller/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="View/Paralaxingbackground.cs">
     <Files>
-      <File FileName="Controller/Program.cs" Line="15" Column="1" />
-      <File FileName="Controller/StupidGame.cs" Line="38" Column="23" />
+      <File FileName="Controller/StupidGame.cs" Line="67" Column="69" />
+      <File FileName="Model/Player.cs" Line="54" Column="4" />
+      <File FileName="View/Animation.cs" Line="33" Column="15" />
+      <File FileName="View/Paralaxingbackground.cs" Line="36" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/tjar2074/Documents/GameDev/StupidGame/StupidGame/View/Animation.cs" line="199" column="2" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
