@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace StupidGame
 {
-	public class Paralaxingbackground
+	public class ParallaxingBackground
 	{
 		// The image representing the parallaxing background
 		Texture2D texture;
@@ -36,11 +36,38 @@ namespace StupidGame
 		}
 		public void Update()
 		{
-			
+			// Update the positions of the background
+			for (int i = 0; i < positions.Length; i++)
+			{
+				// Update the position of the screen by adding the speed
+				positions[i].X += speed;
+				// If the speed has the background moving to the left
+				if (speed <= 0)
+				{
+					// Check the texture is out of view then put that texture at the end of the screen
+					if (positions[i].X <= -texture.Width)
+					{
+						positions[i].X = texture.Width * (positions.Length - 1);
+					}
+				}
+
+				// If the speed has the background moving to the right
+				else
+				{
+					// Check if the texture is out of view then position it to the start of the screen
+					if (positions[i].X >= texture.Width * (positions.Length - 1))
+					{
+						positions[i].X = -texture.Width;
+					}
+				}
+			}
 		}
-		public void Draw()
+		public void Draw(SpriteBatch spriteBatch)
 		{
-			
+			for (int i = 0; i < positions.Length; i++)
+			{
+				spriteBatch.Draw(texture, positions[i], Color.White);
+			}
 		}
 
 		public Paralaxingbackground ()

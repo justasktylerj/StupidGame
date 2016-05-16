@@ -53,7 +53,7 @@
     <Compile Include="Controller\StupidGame.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="View\Animation.cs" />
-    <Compile Include="View\Paralaxingbackground.cs" />
+    <Compile Include="View\ParallaxingBackground.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
