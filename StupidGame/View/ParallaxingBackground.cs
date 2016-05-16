@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace StupidGame
+namespace SampleGame.View
 {
 	public class ParallaxingBackground
 	{
@@ -70,7 +70,7 @@ namespace StupidGame
 			}
 		}
 
-		public Paralaxingbackground ()
+		public ParallaxingBackground ()
 		{
 			
 		}
