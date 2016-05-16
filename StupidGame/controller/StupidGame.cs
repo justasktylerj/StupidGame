@@ -59,10 +59,11 @@ namespace SampleGame.Controller
 			// Set a constant player move speed
 			playerMoveSpeed = 2.0f;
 
-			base.Initialize ();
-
 			bgLayer1 = new ParallaxingBackground();
 			bgLayer2 = new ParallaxingBackground();
+
+			base.Initialize ();
+
 		}
 
 		/// <summary>
@@ -82,10 +83,10 @@ namespace SampleGame.Controller
 			player.Initialize(playerAnimation, playerPosition);
 
 			// Load the parallaxing background
-			bgLayer1.Initialize(Content, "bgLayer1", GraphicsDevice.Viewport.Width, -1);
-			bgLayer2.Initialize(Content, "bgLayer2", GraphicsDevice.Viewport.Width, -2);
+			bgLayer1.Initialize(Content, "Texture/bgLayer1", GraphicsDevice.Viewport.Width, -1);
+			bgLayer2.Initialize(Content, "Texture/bgLayer2", GraphicsDevice.Viewport.Width, -2);
 
-			mainBackground = Content.Load<Texture2D>("mainBackground");
+			mainBackground = Content.Load<Texture2D>("Texture/mainBackground");
 
 		}
 
