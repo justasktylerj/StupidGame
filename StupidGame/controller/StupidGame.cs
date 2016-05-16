@@ -31,11 +31,11 @@ namespace SampleGame.Controller
 		private float playerMoveSpeed;
 
 		// Image used to display the static background
-		Texture2D mainBackground;
+		private Texture2D mainBackground;
 
 		// Parallaxing Layers
-		ParallaxingBackground bgLayer1;
-		ParallaxingBackground bgLayer2;
+		private ParallaxingBackground bgLayer1;
+		private ParallaxingBackground bgLayer2;
 
 
 		public StupidGame ()
@@ -72,6 +72,7 @@ namespace SampleGame.Controller
 		protected override void LoadContent ()
 		{
 			spriteBatch = new SpriteBatch (GraphicsDevice);
+
 			Animation playerAnimation = new Animation();
 			Texture2D playerTexture = Content.Load<Texture2D>("Animation/Imported Paladin");
 			playerAnimation.Initialize(playerTexture, Vector2.Zero, 50, 60, 6, 80, Color.White, 1f, true);
@@ -84,7 +85,7 @@ namespace SampleGame.Controller
 			bgLayer1.Initialize(Content, "bgLayer1", GraphicsDevice.Viewport.Width, -1);
 			bgLayer2.Initialize(Content, "bgLayer2", GraphicsDevice.Viewport.Width, -2);
 
-			mainBackground = Content.Load<Texture2D>("mainbackground");
+			mainBackground = Content.Load<Texture2D>("mainBackground");
 
 		}
 

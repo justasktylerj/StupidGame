@@ -190,11 +190,6 @@ namespace SampleGame.View
 					spriteBatch.Draw(spriteStrip, destinationRect, sourceRect, color);
 				}
 			}
-
-		public Animation ()
-		{
-
-		}
 	}
 }
 
