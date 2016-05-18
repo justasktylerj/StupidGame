@@ -67,7 +67,7 @@ namespace SampleGame.Model
 			this.Position = position;
 		}
 
-			// Initialize the player
+		// Initialize the player
 		public void Initialize(Animation animation, Vector2 position)
 		{
 			this.playerAnimation = animation;
@@ -90,7 +90,7 @@ namespace SampleGame.Model
 			PlayerAnimation.Position = Position;
 			PlayerAnimation.Update(gameTime);
 		}
-			
+
 		// Draw the player
 		public void Draw(SpriteBatch spriteBatch)
 		{

@@ -53,7 +53,7 @@ namespace SampleGame.Controller
 		protected override void Initialize ()
 		{
 			// TODO: Add your initialization logic here
-            
+
 			player = new Player ();
 
 			// Set a constant player move speed
@@ -139,7 +139,7 @@ namespace SampleGame.Controller
 			if (GamePad.GetState (PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState ().IsKeyDown (Keys.Escape))
 				Exit ();
 			#endif
-            
+
 			// TODO: Add your update logic here
 			// Save the previous state of the keyboard and game pad so we can determinesingle key/button presses
 			previousGamePadState = currentGamePadState;
@@ -168,7 +168,7 @@ namespace SampleGame.Controller
 		protected override void Draw (GameTime gameTime)
 		{
 			graphics.GraphicsDevice.Clear (Color.LavenderBlush);
-            
+
 			//TODO: Add your drawing code here
 			// Start drawing
 			spriteBatch.Begin();
@@ -189,4 +189,3 @@ namespace SampleGame.Controller
 		}
 	}
 }
-
