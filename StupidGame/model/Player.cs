@@ -10,11 +10,11 @@ namespace SampleGame.Model
 {
 	public class Player
 	{
-		private int score;
-		private bool active;
-		private int health;
-		private Animation playerAnimation;
-		private float playerMoveSpeed;
+		public int score;
+		public bool active;
+		public int health;
+		public Animation playerAnimation;
+		public float playerMoveSpeed;
 
 		// Animation representing the player
 		public Animation PlayerAnimation

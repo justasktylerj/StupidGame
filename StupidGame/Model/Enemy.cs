@@ -9,13 +9,13 @@ namespace SampleGame.Model
 	public class Enemy
 	{
 		// Animation representing the enemy
-		private Animation enemyAnimation;
-		private Vector2 position;
-		private bool active;
-		private int health;
-		private int damage;
-		private int worth;
-		private float enemyMoveSpeed;
+		public Animation enemyAnimation;
+		public Vector2 position;
+		public bool active;
+		public int health;
+		public int damage;
+		public int worth;
+		public float enemyMoveSpeed;
 
 		public Animation EnemyAnimation;
 
