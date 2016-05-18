@@ -14,6 +14,7 @@ namespace SampleGame.Model
 		private bool active;
 		private int health;
 		private Animation playerAnimation;
+		private float playerMoveSpeed;
 
 		// Animation representing the player
 		public Animation PlayerAnimation
@@ -58,6 +59,12 @@ namespace SampleGame.Model
 			set { score = value; }
 		}
 
+		public float PlayerMoveSpeed
+		{
+			get { return playerMoveSpeed; }
+			set { playerMoveSpeed = value; }
+		}
+
 		public void Initialize(Texture2D texture, Vector2 position)
 		{
 			this.active = true;
@@ -65,6 +72,7 @@ namespace SampleGame.Model
 			this.score = 0;
 			this.PlayerTexture = texture;
 			this.Position = position;
+			this.playerMoveSpeed = 2.0f;
 		}
 
 		// Initialize the player
@@ -82,6 +90,8 @@ namespace SampleGame.Model
 			this.Health = 100;
 
 			this.score = 0;
+
+			this.playerMoveSpeed = 2.0f;
 		}
 
 		// Update the player animation

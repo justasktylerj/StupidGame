@@ -199,7 +199,7 @@
 /processorParam:TextureFormat=Color
 /build:Texture/Level_Pagras.png
 
-#begin Animation/imported goblin.png
+#begin Animation/imported goblin (1).png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -209,5 +209,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Animation/imported goblin.png
+/build:Animation/imported goblin (1).png
 
