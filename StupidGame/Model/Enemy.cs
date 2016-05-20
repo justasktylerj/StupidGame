@@ -86,11 +86,11 @@ namespace SampleGame.Model
 			Damage = 10;
 
 			// Set how fast the enemy moves
-			enemyMoveSpeed = 3.0f;
+			enemyMoveSpeed = 1.0f;
 
 
 			// Set the score value of the enemy
-			Worth = 100;
+			Worth = 20;
 
 		}
 

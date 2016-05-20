@@ -55,7 +55,7 @@ namespace SampleGame.Model
 
 			Damage = 2;
 
-			projectileMoveSpeed = 20f;
+			ProjectileMoveSpeed = 20f;
 		}
 
 		public void Update()
