@@ -70,6 +70,11 @@ namespace SampleGame.Controller
 		// The music played during gameplay
 		Song gameplayMusic;
 
+		//Number that holds the player score
+		int score;
+		// The font used to display UI elements
+		SpriteFont font;
+
 		public StupidGame ()
 		{
 			graphics = new GraphicsDeviceManager (this);
@@ -114,6 +119,9 @@ namespace SampleGame.Controller
 
 			explosions = new List<Animation>();
 
+			//Set player's score to zero
+			score = 0;
+
 		}
 
 		/// <summary>
@@ -148,7 +156,7 @@ namespace SampleGame.Controller
 			explosionTexture = Content.Load<Texture2D>("Animation/explosion");
 
 			// Load the music
-			gameplayMusic = Content.Load<Song>("Sound/gameMusic");
+			gameplayMusic = Content.Load<Song>("Sound/Kingdom Rush Soundtrack - Forest Battle (PC&app)");
 
 			// Load the laser and explosion sound effect
 			laserSound = Content.Load<SoundEffect>("Sound/laserFire");
@@ -156,6 +164,9 @@ namespace SampleGame.Controller
 
 			// Start the music right away
 			PlayMusic(gameplayMusic);
+
+			// Load the score font
+			font = Content.Load<SpriteFont>("Font/gameFont");
 
 			mainBackground = Content.Load<Texture2D>("Texture/mainBackground");
 
@@ -206,6 +217,12 @@ namespace SampleGame.Controller
 
 				// Play the laser sound
 				laserSound.Play();
+			}
+
+			if (player.Health <= 0)
+			{
+				player.Health = 100;
+				score = 0;
 			}
 
 		}
@@ -358,6 +375,11 @@ namespace SampleGame.Controller
 				explosions[i].Draw(spriteBatch);
 			}
 
+			// Draw the score
+			spriteBatch.DrawString(font, "score: " + score, new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y), Color.White);
+			// Draw the player health
+			spriteBatch.DrawString(font, "health: " + player.Health, new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + 30), Color.White);
+
 			player.Draw(spriteBatch);
 
 			// Stop drawing
@@ -416,6 +438,9 @@ namespace SampleGame.Controller
 					{
 						// Add an explosion
 						AddExplosion(enemies[i].Position);
+
+						//Add to the player's score
+						score += enemies[i].Worth;
 					}
 					enemies.RemoveAt(i);
 				} 

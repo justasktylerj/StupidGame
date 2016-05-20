@@ -211,3 +211,9 @@
 /processorParam:TextureFormat=Color
 /build:Animation/imported goblin clone.png
 
+#begin Sound/Kingdom Rush Soundtrack - Forest Battle (PC&app).mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/Kingdom Rush Soundtrack - Forest Battle (PC&app).mp3
+
