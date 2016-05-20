@@ -133,13 +133,14 @@ namespace SampleGame.Controller
 			spriteBatch = new SpriteBatch (GraphicsDevice);
 
 			Animation playerAnimation = new Animation();
+			Animation playerAttack = new Animation ();
+			Animation playerIdol = new Animation ();
+			Animation playerBlast = new Animation ();
 			Texture2D playerTexture = Content.Load<Texture2D>("Animation/Imported Paladin");
-			playerAnimation.Initialize(playerTexture, Vector2.Zero, 50, 60, 6, 50, Color.White, 1f, true);
-//			walkDown = new Animation ();
-//			walkDown.AddFrame (new Rectangle (0, 0, 16, 16), TimeSpan.FromSeconds (.25));
-//			walkDown.AddFrame (new Rectangle (16, 0, 16, 16), TimeSpan.FromSeconds (.25));
-//			walkDown.AddFrame (new Rectangle (0, 0, 16, 16), TimeSpan.FromSeconds (.25));
-//			walkDown.AddFrame (new Rectangle (32, 0, 16, 16), TimeSpan.FromSeconds (.25));
+			playerAnimation.Initialize(playerTexture, Vector2.Zero, 50, 60, 0, 6, 50, Color.White, 1f, true);
+			playerAttack.Initialize(playerTexture, Vector2.Zero, 50, 60, 7, 18, 50, Color.White, 1f, true);
+			playerIdol.Initialize(playerTexture, Vector2.Zero, 50, 60, 31, 31, 50, Color.White, 1f, true);
+			playerBlast.Initialize(playerTexture, Vector2.Zero, 50, 60, 32, 42, 50, Color.White, 1f, true);
 
 			Vector2 playerPosition = new Vector2 (GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y
 				+ GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
@@ -207,22 +208,25 @@ namespace SampleGame.Controller
 			player.Position.Y = MathHelper.Clamp(player.Position.Y, 0,GraphicsDevice.Viewport.Height - player.Height);
 
 			// Fire only every interval we set as the fireTime
-			if (gameTime.TotalGameTime - previousFireTime > fireTime)
+			if (currentKeyboardState.IsKeyDown(Keys.Space))
 			{
-				// Reset our current time
-				previousFireTime = gameTime.TotalGameTime;
+				if (gameTime.TotalGameTime - previousFireTime > fireTime)
+				{
+					// Reset our current time
+					previousFireTime = gameTime.TotalGameTime;
 
-				// Add the projectile, but add it to the front and center of the player
-				AddProjectile(player.Position + new Vector2(player.Width / 2, 0));
+					// Add the projectile, but add it to the front and center of the player
+					AddProjectile(player.Position + new Vector2(player.Width / 2, 0));
 
-				// Play the laser sound
-				laserSound.Play();
-			}
+					// Play the laser sound
+					laserSound.Play();
+				}
 
-			if (player.Health <= 0)
-			{
-				player.Health = 100;
-				score = 0;
+				if (player.Health <= 0)
+				{
+					player.Health = 100;
+					score = 0;
+				}
 			}
 
 		}
@@ -394,7 +398,7 @@ namespace SampleGame.Controller
 			Animation enemyAnimation = new Animation();
 
 			// Initialize the animation with the correct animation information
-			enemyAnimation.Initialize(enemyTexture, Vector2.Zero, 35, 30, 9, 50,Color.White, 1f, true);
+			enemyAnimation.Initialize(enemyTexture, Vector2.Zero, 35, 30, 0, 9, 50,Color.White, 1f, true);
 
 			// Randomly generate the position of the enemy
 			Vector2 position = new Vector2(GraphicsDevice.Viewport.Width +enemyTexture.Width / 2, random.Next(100, GraphicsDevice.Viewport.Height -100));
@@ -466,7 +470,7 @@ namespace SampleGame.Controller
 		private void AddExplosion(Vector2 position)
 		{
 			Animation explosion = new Animation();
-			explosion.Initialize(explosionTexture,position, 134, 134, 12, 45, Color.White, 1f,false);
+			explosion.Initialize(explosionTexture,position, 134, 134, 0, 12, 45, Color.White, 1f,false);
 			explosions.Add(explosion);
 		}
 

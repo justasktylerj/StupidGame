@@ -43,6 +43,14 @@ namespace SampleGame.View
 		}
 
 		// The number of frames that the animation contains
+		private int frameCountMin;
+
+		public int FrameCountMin
+		{
+			get { return frameCountMin; }
+			set { frameCountMin = value; }
+		}
+
 		private int frameCount;
 
 		public int FrameCount
@@ -121,13 +129,14 @@ namespace SampleGame.View
 		}
 
 		public void Initialize(Texture2D texture, Vector2 position,
-			int frameWidth, int frameHeight, int frameCount,
+			int frameWidth, int frameHeight, int frameCountMin, int frameCount,
 			int frametime, Color color, float scale, bool looping)
 		{
 			// Keep a local copy of the values passed in
 			this.color = color;
 			this.FrameWidth = frameWidth;
 			this.FrameHeight = frameHeight;
+			this.frameCountMin = frameCountMin;
 			this.frameCount = frameCount;
 			this.frameTime = frametime;
 			this.scale = scale;
@@ -138,7 +147,7 @@ namespace SampleGame.View
 
 			// Set the time to zero
 			elapsedTime = 0;
-			currentFrame = 0;
+			currentFrame = FrameCountMin;
 
 			// Set the Animation to active by default
 			Active = true;
@@ -162,7 +171,7 @@ namespace SampleGame.View
 				// If the currentFrame is equal to frameCount reset currentFrame to zero
 				if (currentFrame == frameCount)
 				{
-					currentFrame = 0;
+					currentFrame = FrameCountMin;
 					// If we are not looping deactivate the animation
 					if (Looping == false)
 						Active = false;
