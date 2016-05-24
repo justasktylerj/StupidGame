@@ -27,6 +27,8 @@ namespace SampleGame.Controller
 		public Animation playerIdol;
 		public Animation playerBlast;
 
+		public Boolean vulerable;
+
 		//public Animation currentAnimation;
 		// Keyboard states used to determine key presses
 		private KeyboardState currentKeyboardState;
@@ -128,6 +130,8 @@ namespace SampleGame.Controller
 			//Set player's score to zero
 			score = 0;
 
+			vulerable = true;
+
 		}
 
 		/// <summary>
@@ -146,8 +150,8 @@ namespace SampleGame.Controller
 			Texture2D playerTexture = Content.Load<Texture2D>("Animation/Imported Paladin");
 
 			playerRun.Initialize(playerTexture, Vector2.Zero, 50, 60, 0, 6, 50, Color.White, 1f, true);
-			playerAttack.Initialize(playerTexture, Vector2.Zero, 50, 60, 7, 18, 50, Color.White, 1f, true);
-			playerIdol.Initialize(playerTexture, Vector2.Zero, 50, 60, 31, 31, 50, Color.White, 1f, true);
+			playerAttack.Initialize(playerTexture, Vector2.Zero, 50, 60, 7, 18, 100, Color.White, 1f, true);
+			playerIdol.Initialize(playerTexture, Vector2.Zero, 50, 60, 30, 31, 50, Color.White, 1f, true);
 			playerBlast.Initialize(playerTexture, Vector2.Zero, 50, 60, 32, 42, 50, Color.White, 1f, true);
 
 			Vector2 playerPosition = new Vector2 (GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y
@@ -214,6 +218,11 @@ namespace SampleGame.Controller
 				player.Position.Y += playerMoveSpeed;
 				player.playerAnimation = playerRun;
 			}
+			if (currentKeyboardState.IsKeyUp(Keys.Down) && currentKeyboardState.IsKeyUp(Keys.Up) && currentKeyboardState.IsKeyUp(Keys.Left) && currentKeyboardState.IsKeyUp(Keys.Right) && currentKeyboardState.IsKeyUp(Keys.Space) && currentKeyboardState.IsKeyUp(Keys.A))
+			{
+				player.playerAnimation = playerIdol;
+			}
+
 
 			// Make sure that the player does not go out of bounds
 			player.Position.X = MathHelper.Clamp(player.Position.X, 0,GraphicsDevice.Viewport.Width - player.Width);
@@ -241,6 +250,17 @@ namespace SampleGame.Controller
 					player.Health = 100;
 					score = 0;
 				}
+			}
+
+			if (currentKeyboardState.IsKeyDown(Keys.W) ||
+				currentGamePadState.DPad.Right == ButtonState.Pressed)
+			{
+				player.playerAnimation = playerAttack;
+				vulerable = false;
+			}
+			else
+			{
+				vulerable = true;
 			}
 
 		}
@@ -301,8 +321,8 @@ namespace SampleGame.Controller
 			// Only create the rectangle once for the player
 			rectangle1 = new Rectangle((int)player.Position.X,
 				(int)player.Position.Y,
-				player.Width,
-				player.Height);
+				player.Width / 2
+				,player.Height / 2);
 
 			// Do the collision between the player and the enemies
 			for (int i = 0; i <enemies.Count; i++)
@@ -318,17 +338,14 @@ namespace SampleGame.Controller
 				{
 					// Subtract the health from the player based on
 					// the enemy damage
-					player.playerAnimation = playerAttack;
-
-
-					player.Health -= enemies[i].Damage;
+					if (vulerable == true)
+					{
+						player.Health -= enemies[i].Damage;
+					}
 
 					// Since the enemy collided with the player
 					// destroy it
 					enemies[i].Health = 0;
-
-
-
 		
 					// If the player health is less than zero we died
 					if (player.Health <= 0)
@@ -462,11 +479,16 @@ namespace SampleGame.Controller
 				{
 					if (enemies[i].Health <= 0)
 					{
-						// Add an explosion
-						AddExplosion(enemies[i].Position);
 
-						//Add to the player's score
-						score += enemies[i].Worth;
+						if(vulerable == true)
+						{
+							// Add an explosion
+							AddExplosion(enemies[i].Position);
+
+							//Add to the player's score
+							score += enemies[i].Worth;
+						}
+
 					}
 					enemies.RemoveAt(i);
 				} 
