@@ -13,8 +13,9 @@ namespace SampleGame.Model
 		public int score;
 		public bool active;
 		public int health;
-		public Animation playerAnimation;
 		public float playerMoveSpeed;
+
+		public Animation playerAnimation;
 
 		// Animation representing the player
 		public Animation PlayerAnimation
@@ -42,14 +43,15 @@ namespace SampleGame.Model
 			set { health = value; }
 		}
 
-		// Get the width of the player ship
+		 //Get the width of the player ship
 		public int Width
 		{
 			get { return PlayerAnimation.FrameWidth; }
 		}
 
 		// Get the height of the player ship
-		public int Height {
+		public int Height 
+		{
 			get { return PlayerAnimation.FrameHeight; }
 
 		}

@@ -22,6 +22,12 @@ namespace SampleGame.Controller
 
 		private Player player;
 
+		public Animation playerRun;
+		public Animation playerAttack;
+		public Animation playerIdol;
+		public Animation playerBlast;
+
+		//public Animation currentAnimation;
 		// Keyboard states used to determine key presses
 		private KeyboardState currentKeyboardState;
 		private KeyboardState previousKeyboardState;
@@ -132,19 +138,21 @@ namespace SampleGame.Controller
 		{
 			spriteBatch = new SpriteBatch (GraphicsDevice);
 
-			Animation playerAnimation = new Animation();
-			Animation playerAttack = new Animation ();
-			Animation playerIdol = new Animation ();
-			Animation playerBlast = new Animation ();
+			playerRun = new Animation();
+			playerAttack = new Animation ();
+			playerIdol = new Animation ();
+			playerBlast = new Animation ();
+
 			Texture2D playerTexture = Content.Load<Texture2D>("Animation/Imported Paladin");
-			playerAnimation.Initialize(playerTexture, Vector2.Zero, 50, 60, 0, 6, 50, Color.White, 1f, true);
+
+			playerRun.Initialize(playerTexture, Vector2.Zero, 50, 60, 0, 6, 50, Color.White, 1f, true);
 			playerAttack.Initialize(playerTexture, Vector2.Zero, 50, 60, 7, 18, 50, Color.White, 1f, true);
 			playerIdol.Initialize(playerTexture, Vector2.Zero, 50, 60, 31, 31, 50, Color.White, 1f, true);
 			playerBlast.Initialize(playerTexture, Vector2.Zero, 50, 60, 32, 42, 50, Color.White, 1f, true);
 
 			Vector2 playerPosition = new Vector2 (GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y
 				+ GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-			player.Initialize(playerAnimation, playerPosition);
+			player.Initialize(playerIdol, playerPosition);
 
 			// Load the parallaxing background
 			bgLayer1.Initialize(Content, "Texture/bgLayer1", GraphicsDevice.Viewport.Width, -1);
@@ -186,21 +194,25 @@ namespace SampleGame.Controller
 				currentGamePadState.DPad.Left == ButtonState.Pressed)
 			{
 				player.Position.X -= playerMoveSpeed;
+				player.playerAnimation = playerRun;
 			}
 			if (currentKeyboardState.IsKeyDown(Keys.Right) ||
 				currentGamePadState.DPad.Right == ButtonState.Pressed)
 			{
 				player.Position.X += playerMoveSpeed;
+				player.playerAnimation = playerRun;
 			}
 			if (currentKeyboardState.IsKeyDown(Keys.Up) ||
 				currentGamePadState.DPad.Up == ButtonState.Pressed)
 			{
 				player.Position.Y -= playerMoveSpeed;
+				player.playerAnimation = playerRun;
 			}
 			if (currentKeyboardState.IsKeyDown(Keys.Down) ||
 				currentGamePadState.DPad.Down == ButtonState.Pressed)
 			{
 				player.Position.Y += playerMoveSpeed;
+				player.playerAnimation = playerRun;
 			}
 
 			// Make sure that the player does not go out of bounds
@@ -214,6 +226,8 @@ namespace SampleGame.Controller
 				{
 					// Reset our current time
 					previousFireTime = gameTime.TotalGameTime;
+
+					player.playerAnimation = playerBlast;
 
 					// Add the projectile, but add it to the front and center of the player
 					AddProjectile(player.Position + new Vector2(player.Width / 2, 0));
@@ -259,6 +273,8 @@ namespace SampleGame.Controller
 			//Update the player
 			UpdatePlayer(gameTime);
 
+			player.playerAnimation.Update (gameTime);
+
 			// Update the parallaxing background
 			bgLayer1.Update();
 			bgLayer2.Update();
@@ -302,12 +318,18 @@ namespace SampleGame.Controller
 				{
 					// Subtract the health from the player based on
 					// the enemy damage
+					player.playerAnimation = playerAttack;
+
+
 					player.Health -= enemies[i].Damage;
 
 					// Since the enemy collided with the player
 					// destroy it
 					enemies[i].Health = 0;
 
+
+
+		
 					// If the player health is less than zero we died
 					if (player.Health <= 0)
 						player.Active = false; 
