@@ -14,6 +14,7 @@ namespace SampleGame.Model
 		public bool active;
 		public int health;
 		public int damage;
+		public int damageMin;
 		public int worth;
 		public float enemyMoveSpeed;
 
@@ -54,6 +55,11 @@ namespace SampleGame.Model
 			set { damage = value; }
 		}
 
+		public int DamageMin
+		{
+			get { return damageMin; }
+			set { damageMin = value; }
+		}
 		// The speed at which the enemy moves
 		public float EnemyMoveSpeed
 		{
@@ -83,7 +89,9 @@ namespace SampleGame.Model
 			Health = 10;
 
 			// Set the amount of damage the enemy can do
-			Damage = 10;
+			Damage = 20;
+
+			DamageMin = 4;
 
 			// Set how fast the enemy moves
 			enemyMoveSpeed = 1.0f;

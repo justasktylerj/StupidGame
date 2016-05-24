@@ -166,7 +166,7 @@ namespace SampleGame.Controller
 
 			projectileTexture = Content.Load<Texture2D>("Texture/laser");
 
-			explosionTexture = Content.Load<Texture2D>("Animation/explosion");
+			explosionTexture = Content.Load<Texture2D>("Animation/dead");
 
 			// Load the music
 			gameplayMusic = Content.Load<Song>("Sound/Kingdom Rush Soundtrack - Forest Battle (PC&app)");
@@ -483,11 +483,13 @@ namespace SampleGame.Controller
 						if(vulerable == true)
 						{
 							// Add an explosion
-							AddExplosion(enemies[i].Position);
+
 
 							//Add to the player's score
 							score += enemies[i].Worth;
 						}
+
+						AddExplosion(enemies[i].Position);
 
 					}
 					enemies.RemoveAt(i);
@@ -514,7 +516,7 @@ namespace SampleGame.Controller
 		private void AddExplosion(Vector2 position)
 		{
 			Animation explosion = new Animation();
-			explosion.Initialize(explosionTexture,position, 134, 134, 0, 12, 45, Color.White, 1f,false);
+			explosion.Initialize(explosionTexture,position, 28, 15, 0, 12, 45, Color.White, 1f,false);
 			explosions.Add(explosion);
 		}
 
