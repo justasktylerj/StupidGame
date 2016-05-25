@@ -26,6 +26,7 @@ namespace SampleGame.Controller
 		public Animation playerAttack;
 		public Animation playerIdol;
 		public Animation playerBlast;
+		public Animation playerHeal;
 
 		public Boolean vulerable;
 
@@ -123,7 +124,7 @@ namespace SampleGame.Controller
 			projectiles = new List<Projectile>();
 
 			// Set the laser to fire every quarter second
-			fireTime = TimeSpan.FromSeconds(.15f);
+			fireTime = TimeSpan.FromSeconds(.25f);
 
 			explosions = new List<Animation>();
 
@@ -153,6 +154,7 @@ namespace SampleGame.Controller
 			playerAttack.Initialize(playerTexture, Vector2.Zero, 50, 60, 7, 18, 100, Color.White, 1f, true);
 			playerIdol.Initialize(playerTexture, Vector2.Zero, 50, 60, 30, 31, 50, Color.White, 1f, true);
 			playerBlast.Initialize(playerTexture, Vector2.Zero, 50, 60, 32, 42, 50, Color.White, 1f, true);
+			playerHeal.Initialize (playerTexture, Vector2.Zero, 50, 60, 20, 30, 50, Color.White, 1f, true);
 
 			Vector2 playerPosition = new Vector2 (GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y
 				+ GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
@@ -200,25 +202,35 @@ namespace SampleGame.Controller
 				player.Position.X -= playerMoveSpeed;
 				player.playerAnimation = playerRun;
 			}
+
 			if (currentKeyboardState.IsKeyDown(Keys.Right) ||
 				currentGamePadState.DPad.Right == ButtonState.Pressed)
 			{
 				player.Position.X += playerMoveSpeed;
 				player.playerAnimation = playerRun;
 			}
+
 			if (currentKeyboardState.IsKeyDown(Keys.Up) ||
 				currentGamePadState.DPad.Up == ButtonState.Pressed)
 			{
 				player.Position.Y -= playerMoveSpeed;
 				player.playerAnimation = playerRun;
 			}
+
 			if (currentKeyboardState.IsKeyDown(Keys.Down) ||
 				currentGamePadState.DPad.Down == ButtonState.Pressed)
 			{
 				player.Position.Y += playerMoveSpeed;
 				player.playerAnimation = playerRun;
 			}
-			if (currentKeyboardState.IsKeyUp(Keys.Down) && currentKeyboardState.IsKeyUp(Keys.Up) && currentKeyboardState.IsKeyUp(Keys.Left) && currentKeyboardState.IsKeyUp(Keys.Right) && currentKeyboardState.IsKeyUp(Keys.Space) && currentKeyboardState.IsKeyUp(Keys.A))
+
+			if (currentKeyboardState.IsKeyUp(Keys.Down)
+				&& currentKeyboardState.IsKeyUp(Keys.Up)
+				&& currentKeyboardState.IsKeyUp(Keys.Left)
+				&& currentKeyboardState.IsKeyUp(Keys.Right)
+				&& currentKeyboardState.IsKeyUp(Keys.Space)
+				&& currentKeyboardState.IsKeyUp(Keys.A)
+				&& currentKeyboardState.IsKeyUp(Keys.H))
 			{
 				player.playerAnimation = playerIdol;
 			}
@@ -245,11 +257,7 @@ namespace SampleGame.Controller
 					laserSound.Play();
 				}
 
-				if (player.Health <= 0)
-				{
-					player.Health = 100;
-					score = 0;
-				}
+
 			}
 
 			if (currentKeyboardState.IsKeyDown(Keys.W) ||
@@ -261,6 +269,20 @@ namespace SampleGame.Controller
 			else
 			{
 				vulerable = true;
+			}
+
+			if (currentKeyboardState.IsKeyDown(Keys.H))
+			{
+				player.playerAnimation = playerHeal;
+				player.Health = player.HealthMax / 2;
+				score = score / 4;
+			}
+
+			if (player.Health <= 0)
+			{
+				player.Health = 100;
+				player.HealthMax = 100;
+				score = 0;
 			}
 
 		}
@@ -487,6 +509,13 @@ namespace SampleGame.Controller
 
 							//Add to the player's score
 							score += enemies[i].Worth;
+
+							player.Health += player.Health / 20;
+							if (player.Health > player.HealthMax)
+							{
+								player.Health = player.HealthMax;
+							}
+
 						}
 
 						AddExplosion(enemies[i].Position);

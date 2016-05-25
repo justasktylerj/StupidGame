@@ -13,6 +13,7 @@ namespace SampleGame.Model
 		public int score;
 		public bool active;
 		public int health;
+		public int healthMax;
 		public float playerMoveSpeed;
 
 		public Animation playerAnimation;
@@ -41,6 +42,12 @@ namespace SampleGame.Model
 		{
 			get { return health; }
 			set { health = value; }
+		}
+
+		public int HealthMax
+		{
+			get { return healthMax; }
+			set { healthMax = value; }
 		}
 
 		 //Get the width of the player ship
@@ -89,7 +96,9 @@ namespace SampleGame.Model
 			this.Active = true;
 
 			// Set the player health
-			this.Health = 100;
+			this.HealthMax = 100;
+
+			this.Health = HealthMax;
 
 			this.score = 0;
 
