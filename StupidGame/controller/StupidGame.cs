@@ -147,6 +147,7 @@ namespace SampleGame.Controller
 			playerAttack = new Animation ();
 			playerIdol = new Animation ();
 			playerBlast = new Animation ();
+			playerHeal = new Animation ();
 
 			Texture2D playerTexture = Content.Load<Texture2D>("Animation/Imported Paladin");
 
@@ -154,7 +155,7 @@ namespace SampleGame.Controller
 			playerAttack.Initialize(playerTexture, Vector2.Zero, 50, 60, 7, 18, 100, Color.White, 1f, true);
 			playerIdol.Initialize(playerTexture, Vector2.Zero, 50, 60, 30, 31, 50, Color.White, 1f, true);
 			playerBlast.Initialize(playerTexture, Vector2.Zero, 50, 60, 32, 42, 50, Color.White, 1f, true);
-			playerHeal.Initialize (playerTexture, Vector2.Zero, 50, 60, 20, 30, 50, Color.White, 1f, true);
+			playerHeal.Initialize(playerTexture, Vector2.Zero, 50, 60, 20, 30, 50, Color.White, 1f, true);
 
 			Vector2 playerPosition = new Vector2 (GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y
 				+ GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
@@ -274,8 +275,12 @@ namespace SampleGame.Controller
 			if (currentKeyboardState.IsKeyDown(Keys.H))
 			{
 				player.playerAnimation = playerHeal;
-				player.Health = player.HealthMax / 2;
-				score = score / 4;
+				if(player.Health < player.HealthMax / 2)
+				{
+					player.playerAnimation = playerHeal;
+					player.Health = player.HealthMax / 2;
+					score = score / 4;
+				}
 			}
 
 			if (player.Health <= 0)
