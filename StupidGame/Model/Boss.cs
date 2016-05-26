@@ -76,29 +76,29 @@ namespace SampleGame.Model
 		public void Initialize(Animation animation,Vector2 position)
 		{
 			// Load the enemy ship texture
-			BossAnimation = animation;
+			this.BossAnimation = animation;
 
 			// Set the position of the enemy
-			Position = position;
+			this.Position = position;
 
 			// We initialize the enemy to be active so it will be update in the game
-			Active = true;
+			this.Active = true;
 
 
 			// Set the health of the enemy
-			Health = 500;
+			this.Health = 500;
 
 			// Set the amount of damage the enemy can do
-			Damage = 75;
+			this.Damage = 75;
 
-			DamageMin = 50;
+			this.DamageMin = 50;
 
 			// Set how fast the enemy moves
-			bossMoveSpeed = 1.0f;
+			this.bossMoveSpeed = 1.0f;
 
 
 			// Set the score value of the enemy
-			Worth = 1000;
+			this.Worth = 1000;
 
 		}
 

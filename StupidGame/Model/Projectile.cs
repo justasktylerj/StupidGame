@@ -53,7 +53,7 @@ namespace SampleGame.Model
 
 			Active = true;
 
-			Damage = 3;
+			Damage = 5;
 
 			ProjectileMoveSpeed = 10f;
 		}

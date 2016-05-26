@@ -21,6 +21,7 @@ namespace SampleGame.Controller
 		SpriteBatch spriteBatch;
 
 		private Player player;
+		private Boss boss;
 
 		public Animation playerRun;
 		public Animation playerAttack;
@@ -61,8 +62,6 @@ namespace SampleGame.Controller
 		private Texture2D enemyTexture;
 		private Texture2D bossTexture;
 		private List<Enemy> enemies;
-		private List<Boss> bosses;
-
 
 		// The rate at which the enemies appear
 		TimeSpan enemySpawnTime;
@@ -120,7 +119,6 @@ namespace SampleGame.Controller
 
 			// Initialize the enemies list
 			enemies = new List<Enemy> ();
-			bosses = new List<Boss> ();
 			// Set the time keepers to zero
 			previousSpawnTime = TimeSpan.Zero;
 
@@ -181,12 +179,12 @@ namespace SampleGame.Controller
 			enemyTexture = Content.Load<Texture2D>("Animation/imported goblin clone");
 
 			bossWalk = new Animation();
-			bossAttack = new Animation ();
-			bossIdle = new Animation ();
-			bossBlast = new Animation ();
-			bossSummon = new Animation ();
+			bossAttack = new Animation();
+			bossIdle = new Animation();
+			bossBlast = new Animation();
+			bossSummon = new Animation();
 
-			bossTexture = Content.Load<Texture2D>("Animation/Wizard_Evil");
+			bossTexture = Content.Load<Texture2D>("Animation/WizardEvil");
 
 			// Initialize the animation with the correct animation information
 			bossWalk.Initialize(bossTexture, Vector2.Zero, 50, 43, 0, 14, 50,Color.White, 1f, true);
@@ -194,6 +192,8 @@ namespace SampleGame.Controller
 			bossIdle.Initialize(bossTexture, Vector2.Zero, 50, 43, 13, 14, 50,Color.White, 1f, true);
 			bossBlast.Initialize(bossTexture, Vector2.Zero, 50, 43, 41, 53, 50,Color.White, 1f, true);
 			bossSummon.Initialize(bossTexture, Vector2.Zero, 50, 43, 29, 40, 50,Color.White, 1f, true);
+
+
 
 			projectileTexture = Content.Load<Texture2D>("Texture/laser");
 
@@ -350,14 +350,16 @@ namespace SampleGame.Controller
 			//Update the player
 			UpdatePlayer(gameTime);
 
-			player.playerAnimation.Update (gameTime);
+
+			boss.bossAnimation.Update (gameTime);
+
 
 			// Update the parallaxing background
 			bgLayer1.Update();
 			bgLayer2.Update();
 
 			UpdateEnemies(gameTime);
-			UpdateBosses (gameTime);
+			UpdateBoss(gameTime);
 
 			// Update the collision
 			UpdateCollision();
@@ -366,9 +368,9 @@ namespace SampleGame.Controller
 
 			UpdateExplosions(gameTime);
 
-			if(score >= 1000)
+			if(score >= 200)
 			{
-				level++;
+				level = 2;
 			}
 
 			base.Update (gameTime);
@@ -389,7 +391,8 @@ namespace SampleGame.Controller
 				, player.Height / 2);
 
 			// Do the collision between the player and the enemies
-			for (int i = 0; i < enemies.Count; i++) {
+			for (int i = 0; i < enemies.Count; i++) 
+			{
 				rectangle2 = new Rectangle ((int)enemies [i].Position.X,
 					(int)enemies [i].Position.Y,
 					enemies [i].Width,
@@ -397,10 +400,12 @@ namespace SampleGame.Controller
 
 				// Determine if the two objects collided with each
 				// other
-				if (rectangle1.Intersects (rectangle2)) {
+				if (rectangle1.Intersects (rectangle2)) 
+				{
 					// Subtract the health from the player based on
 					// the enemy damage
-					if (vulerable == true) {
+					if (vulerable == true) 
+					{
 						player.Health -= enemies [i].Damage;
 					}
 
@@ -409,45 +414,44 @@ namespace SampleGame.Controller
 					enemies [i].Health -= player.PlayerDamage;
 		
 					// If the player health is less than zero we died
-					if (player.Health <= 0) {
+					if (player.Health <= 0) 
+					{
 						player.Active = false; 
 					}
 						
 				}
 			}
 
-			for (int i = 0; i < bosses.Count; i++) {
-				rectangle3 = new Rectangle ((int)bosses [i].Position.X,
-					(int)bosses [i].Position.Y,
-					bosses [i].Width,
-					bosses [i].Height);
+
+				rectangle3 = new Rectangle ((int)boss.Position.X, (int)boss.Position.Y, boss.Width, boss.Height);
 				
-				if (rectangle1.Intersects (rectangle3)) {
+				if (rectangle1.Intersects (rectangle3)) 
+				{
 					// Subtract the health from the player based on
 					// the enemy damage
-					if (vulerable == true) {
-						player.Health -= bosses [i].Damage;
-					} else {
-						player.Health -= bosses [i].Damage / 4;
+					if (vulerable == true) 
+					{
+						player.Health -= boss.Damage;
+					}
+					else 
+					{
+						player.Health -= boss.Damage / 4;
 					}
 					// Since the enemy collided with the player
 					// destroy it
-					bosses [i].Health -= player.PlayerDamage;
+					boss.Health -= player.PlayerDamage;
 
 					// If the player health is less than zero we died
 					if (player.Health <= 0)
+					{
 						player.Active = false; 
+					}
 				}
-			}
-		
-		
-
-
-
 			// Projectile vs Enemy Collision
 			for (int i = 0; i < projectiles.Count; i++)
 			{
-				for (int j = 0; j < enemies.Count; j++) {
+				for (int j = 0; j < enemies.Count; j++) 
+				{
 					// Create the rectangles we need to determine if we collided with each other
 					rectangle1 = new Rectangle ((int)projectiles [i].Position.X -
 					projectiles [i].Width / 2, (int)projectiles [i].Position.Y -
@@ -458,25 +462,25 @@ namespace SampleGame.Controller
 						enemies [j].Width, enemies [j].Height);
 
 					// Determine if the two objects collided with each other
-					if (rectangle1.Intersects (rectangle2)) {
+					if (rectangle1.Intersects (rectangle2)) 
+					{
 						enemies [j].Health -= projectiles [i].Damage;
 						projectiles [i].Active = false;
 					}
 
 				}
-				for (int k = 0; k < bosses.Count; k++)
-				{
-					rectangle3 = new Rectangle((int)bosses[k].Position.X - bosses[k].Width / 2,
-						(int)bosses[k].Position.Y - bosses[k].Height / 2,
-						bosses[k].Width, bosses[k].Height);
+				
+				rectangle3 = new Rectangle((int)boss.Position.X - boss.Width / 2,
+					(int)boss.Position.Y - boss.Height / 2,
+					boss.Width, boss.Height);
 					
-					if (rectangle1.Intersects(rectangle3))
-					{
-						bosses[k].Health -= projectiles[i].Damage;
-						projectiles[i].Active = false;
-					}
-
+				if (rectangle1.Intersects(rectangle3))
+				{
+					boss.Health -= projectiles[i].Damage;
+					projectiles[i].Active = false;
 				}
+
+
 			}
 
 
@@ -503,10 +507,9 @@ namespace SampleGame.Controller
 				enemies[i].Draw(spriteBatch);
 			}
 
-			for (int i = 0; i < bosses.Count; i++)
-			{
-				bosses[i].Draw(spriteBatch);
-			}
+		
+			boss.Draw(spriteBatch);
+			
 
 			// Draw the Projectiles
 			for (int i = 0; i < projectiles.Count; i++)
@@ -559,6 +562,9 @@ namespace SampleGame.Controller
 			// Create the animation object
 			Animation bossAnimation = new Animation();
 
+			bossWalk.Initialize(bossTexture, Vector2.Zero, 50, 43, 0, 14, 50,Color.White, 1f, true);
+
+			bossAnimation = bossIdle;
 			// Randomly generate the position of the enemy
 			Vector2 position = new Vector2(GraphicsDevice.Viewport.Width +bossTexture.Width / 2, random.Next(100, GraphicsDevice.Viewport.Height -100));
 
@@ -567,10 +573,7 @@ namespace SampleGame.Controller
 
 			// Initialize the enemy
 			boss.Initialize(bossAnimation, position); 
-
-			boss.bossAnimation = bossIdle;
-			// Add the enemy to the active enemies list
-			bosses.Add(boss);
+			
 		}
 
 		private void AddProjectile(Vector2 position)
@@ -602,7 +605,7 @@ namespace SampleGame.Controller
 				previousSpawnTime = gameTime.TotalGameTime;
 
 				// Add an Enemy
-				AddEnemy();
+				AddBoss();
 			}
 
 			// Update the Enemies
@@ -637,75 +640,42 @@ namespace SampleGame.Controller
 					enemies.RemoveAt(i);
 				} 
 			}
-			for (int i = bosses.Count - 1; i >= 0; i--) 
-			{
-				bosses[i].Update(gameTime);
 
-				if (bosses[i].Active == false)
+		}
+
+		private void UpdateBoss(GameTime gameTime)
+		{
+			
+				boss.Update (gameTime);
+
+				if (boss.Active == false) 
 				{
-					if (bosses[i].Health <= 0)
+					if (boss.Health <= 0) 
 					{
 
-						if(vulerable == true)
+						if (vulerable == true) 
 						{
 							// Add an explosion
 
 
 							//Add to the player's score
-							score += bosses[i].Worth;
+							score += boss.Worth;
 
 							player.Health += player.Health / 20;
-							if (player.Health > player.HealthMax)
+							if (player.Health > player.HealthMax) 
 							{
 								player.Health = player.HealthMax;
 							}
 
 						}
 
-						AddExplosion(bosses[i].Position);
+						AddExplosion (boss.Position);
 
 					}
-					bosses.RemoveAt(i);
+				//boss.RemoveAt (i);
 				} 
-			}
-
 		}
-
-		private void UpdateBosses(GameTime gameTime)
-		{
-			// Spawn a new enemy enemy every 1.5 seconds
-			if (level == 2 && bosses.Count == 0) {
-				AddBoss ();
-			}
-
-			// Update the Enemies
-			for (int i = bosses.Count - 1; i >= 0; i--) {
-				bosses [i].Update (gameTime);
-
-				if (bosses [i].Active == false) {
-					if (bosses [i].Health <= 0) {
-
-						if (vulerable == true) {
-							// Add an explosion
-
-
-							//Add to the player's score
-							score += bosses [i].Worth;
-
-							player.Health += player.Health / 20;
-							if (player.Health > player.HealthMax) {
-								player.Health = player.HealthMax;
-							}
-
-						}
-
-						AddExplosion (enemies [i].Position);
-
-					}
-					bosses.RemoveAt (i);
-				} 
-			}
-		}
+	
 
 		private void AddExplosion(Vector2 position)
 		{

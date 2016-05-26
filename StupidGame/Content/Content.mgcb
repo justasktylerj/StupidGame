@@ -229,7 +229,7 @@
 /processorParam:TextureFormat=Color
 /build:Animation/dead.png
 
-#begin Animation/Wizard_Evil.png
+#begin Animation/WizardEvil.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -239,5 +239,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Animation/Wizard_Evil.png
+/build:Animation/WizardEvil.png
 
