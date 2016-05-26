@@ -8,10 +8,12 @@ using SampleGame.View;
 
 namespace SampleGame.Model
 {
-	public class Player
+	public class Player 
 	{
 		public int score;
 		public bool active;
+		public int playerDamage;
+		public int playerDamageMin;
 		public int health;
 		public int healthMax;
 		public float playerMoveSpeed;
@@ -38,6 +40,19 @@ namespace SampleGame.Model
 		}
 
 		// Amount of hit points that player has
+		public int PlayerDamage
+		{
+			get { return playerDamage; }
+			set { playerDamage = value; }
+		}
+
+		public int PlayerDamageMin
+		{
+			get { return playerDamageMin; }
+			set { playerDamageMin = value; }
+		}
+
+
 		public int Health
 		{
 			get { return health; }
@@ -95,6 +110,9 @@ namespace SampleGame.Model
 			// Set the player to be active
 			this.Active = true;
 
+			this.PlayerDamageMin = 40;
+
+			this.PlayerDamage = 50;
 			// Set the player health
 			this.HealthMax = 100;
 
