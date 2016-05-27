@@ -6,22 +6,26 @@ using SampleGame.View;
 
 namespace SampleGame.Model
 {
-	public class Enemy
+	public class Enemy 
 	{
 		// Animation representing the enemy
+		public Texture2D enemyTexture;
+
+		public Texture2D EnemyTexture;
+
 		public Animation enemyAnimation;
-		public Vector2 position;
-		public bool active;
-		public int health;
-		public int damage;
-		public int damageMin;
-		public int worth;
-		public float enemyMoveSpeed;
 
-		public Animation EnemyAnimation;
-
+		public Animation EnemyAnimation
+		{
+			get { return enemyAnimation; }
+			set { enemyAnimation = value; }
+		}
 		// Position of the Player relative to the upper left side of the screen
+		public Vector2 position;
+
 		public Vector2 Position;
+
+		public bool active;
 
 		public bool Active
 		{
@@ -30,6 +34,8 @@ namespace SampleGame.Model
 		}
 
 		// Amount of hit points that player has
+		public int health;
+
 		public int Health
 		{
 			get { return health; }
@@ -49,11 +55,15 @@ namespace SampleGame.Model
 			get { return EnemyAnimation.FrameHeight; } 
 		}
 
+		public int damage;
+
 		public int Damage
 		{
 			get { return damage; }
 			set { damage = value; }
 		}
+
+		public int damageMin;
 
 		public int DamageMin
 		{
@@ -61,11 +71,15 @@ namespace SampleGame.Model
 			set { damageMin = value; }
 		}
 		// The speed at which the enemy moves
+		public float enemyMoveSpeed;
+
 		public float EnemyMoveSpeed
 		{
 			get { return enemyMoveSpeed; }
 			set { enemyMoveSpeed = value; }
 		}
+
+		public int worth;
 
 		public int Worth
 		{
@@ -73,34 +87,22 @@ namespace SampleGame.Model
 			set { worth = value; }
 		}
 
-		public void Initialize(Animation animation,Vector2 position)
+		public void Initialize(Animation enemyAnimation, Vector2 position,
+			bool active, int health, int damageMin, int damage,
+			float enemyMoveSpeed, int worth)
 		{
-			// Load the enemy ship texture
-			EnemyAnimation = animation;
-
-			// Set the position of the enemy
-			Position = position;
-
-			// We initialize the enemy to be active so it will be update in the game
-			Active = true;
-
-
-			// Set the health of the enemy
-			Health = 10;
-
-			// Set the amount of damage the enemy can do
-			Damage = 20;
-
-			DamageMin = 4;
-
-			// Set how fast the enemy moves
-			enemyMoveSpeed = 1.0f;
-
-
-			// Set the score value of the enemy
-			Worth = 20;
-
+			// Keep a local copy of the values passed in
+			this.enemyAnimation = enemyAnimation;
+			this.position = position;
+			this.active = true;
+			this.health = 20;
+			this.damageMin = 5;
+			this.damage = 10;
+			this.enemyMoveSpeed = 1.0f; // = enemyMoveSpeed
+			this.worth = 20; // = worth
 		}
+
+
 
 		public void Update(GameTime gameTime)
 		{ 
@@ -127,11 +129,7 @@ namespace SampleGame.Model
 			// Draw the animation
 			EnemyAnimation.Draw(spriteBatch);
 		}
-
-		public Enemy ()
-		{
-
-		}
+			
 	}
 }
 

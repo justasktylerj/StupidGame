@@ -18,8 +18,11 @@ namespace SampleGame.Model
 		public int worth;
 		public float bossMoveSpeed;
 
-		public Animation BossAnimation;
-
+		public Animation BossAnimation
+		{
+			get { return bossAnimation; }
+			set { bossAnimation = value; }
+		}
 		// Position of the Player relative to the upper left side of the screen
 		public Vector2 Position;
 
@@ -76,29 +79,29 @@ namespace SampleGame.Model
 		public void Initialize(Animation animation,Vector2 position)
 		{
 			// Load the enemy ship texture
-			this.BossAnimation = animation;
+			BossAnimation = animation;
 
 			// Set the position of the enemy
-			this.Position = position;
+			Position = position;
 
 			// We initialize the enemy to be active so it will be update in the game
-			this.Active = true;
+			Active = true;
 
 
 			// Set the health of the enemy
-			this.Health = 500;
+			Health = 500;
 
 			// Set the amount of damage the enemy can do
-			this.Damage = 75;
+			Damage = 75;
 
-			this.DamageMin = 50;
+			DamageMin = 50;
 
 			// Set how fast the enemy moves
-			this.bossMoveSpeed = 1.0f;
+			bossMoveSpeed = 1.0f;
 
 
 			// Set the score value of the enemy
-			this.Worth = 1000;
+			Worth = 1000;
 
 		}
 
@@ -128,10 +131,7 @@ namespace SampleGame.Model
 			BossAnimation.Draw(spriteBatch);
 		}
 
-		public Boss ()
-		{
 
-		}
 	}
 }
 

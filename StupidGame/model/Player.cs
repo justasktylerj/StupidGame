@@ -18,6 +18,12 @@ namespace SampleGame.Model
 		public int healthMax;
 		public float playerMoveSpeed;
 
+		public Animation playerRun;
+		public Animation playerAttack;
+		public Animation playerIdle;
+		public Animation playerBlast;
+		public Animation playerHeal;
+
 		public Animation playerAnimation;
 
 		// Animation representing the player
@@ -27,8 +33,7 @@ namespace SampleGame.Model
 			set { playerAnimation = value; }
 		}
 
-		public Texture2D PlayerTexture;
-
+		public Texture2D playerTexture;
 		// Position of the Player relative to the upper left side of the screen
 		public Vector2 Position;
 
@@ -89,20 +94,10 @@ namespace SampleGame.Model
 			set { playerMoveSpeed = value; }
 		}
 
-		public void Initialize(Texture2D texture, Vector2 position)
-		{
-			this.active = true;
-			this.health = 100;
-			this.score = 0;
-			this.PlayerTexture = texture;
-			this.Position = position;
-			this.playerMoveSpeed = 2.0f;
-		}
-
 		// Initialize the player
 		public void Initialize(Animation animation, Vector2 position)
 		{
-			this.playerAnimation = animation;
+			this.playerAnimation = playerIdle;
 
 			// Set the starting position of the player around the middle of the screen and to the back
 			this.Position = position;
@@ -121,6 +116,19 @@ namespace SampleGame.Model
 			this.score = 0;
 
 			this.playerMoveSpeed = 2.0f;
+
+			playerRun = new Animation();
+			playerAttack = new Animation ();
+			playerIdle = new Animation ();
+			playerBlast = new Animation ();
+			playerHeal = new Animation ();
+
+			playerRun.Initialize(playerTexture, Vector2.Zero, 50, 60, 0, 6, 50, Color.White, 1f, true);
+			playerAttack.Initialize(playerTexture, Vector2.Zero, 50, 60, 7, 18, 100, Color.White, 1f, true);
+			playerIdle.Initialize(playerTexture, Vector2.Zero, 50, 60, 30, 31, 50, Color.White, 1f, true);
+			playerBlast.Initialize(playerTexture, Vector2.Zero, 50, 60, 32, 42, 50, Color.White, 1f, true);
+			playerHeal.Initialize(playerTexture, Vector2.Zero, 50, 60, 20, 30, 50, Color.White, 1f, true);
+
 		}
 
 		// Update the player animation
@@ -135,6 +143,8 @@ namespace SampleGame.Model
 		{
 			PlayerAnimation.Draw(spriteBatch);
 		}
+
+
 	}
 }
 

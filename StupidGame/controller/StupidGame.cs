@@ -21,21 +21,8 @@ namespace SampleGame.Controller
 		SpriteBatch spriteBatch;
 
 		private Player player;
-		private Boss boss;
-
-		public Animation playerRun;
-		public Animation playerAttack;
-		public Animation playerIdle;
-		public Animation playerBlast;
-		public Animation playerHeal;
 
 		public int level;
-
-		public Animation bossWalk;
-		public Animation bossAttack;
-		public Animation bossSummon;
-		public Animation bossIdle;
-		public Animation bossBlast;
 
 		public Boolean vulerable;
 
@@ -60,7 +47,7 @@ namespace SampleGame.Controller
 
 		// Enemies
 		private Texture2D enemyTexture;
-		private Texture2D bossTexture;
+
 		private List<Enemy> enemies;
 
 		// The rate at which the enemies appear
@@ -154,46 +141,18 @@ namespace SampleGame.Controller
 		{
 			spriteBatch = new SpriteBatch (GraphicsDevice);
 
-			playerRun = new Animation();
-			playerAttack = new Animation ();
-			playerIdle = new Animation ();
-			playerBlast = new Animation ();
-			playerHeal = new Animation ();
-
 			Texture2D playerTexture = Content.Load<Texture2D>("Animation/Imported Paladin");
-
-			playerRun.Initialize(playerTexture, Vector2.Zero, 50, 60, 0, 6, 50, Color.White, 1f, true);
-			playerAttack.Initialize(playerTexture, Vector2.Zero, 50, 60, 7, 18, 100, Color.White, 1f, true);
-			playerIdle.Initialize(playerTexture, Vector2.Zero, 50, 60, 30, 31, 50, Color.White, 1f, true);
-			playerBlast.Initialize(playerTexture, Vector2.Zero, 50, 60, 32, 42, 50, Color.White, 1f, true);
-			playerHeal.Initialize(playerTexture, Vector2.Zero, 50, 60, 20, 30, 50, Color.White, 1f, true);
 
 			Vector2 playerPosition = new Vector2 (GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y
 				+ GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-			player.Initialize(playerIdle, playerPosition);
+
+			player.Initialize(player.playerIdle, playerPosition);
 
 			// Load the parallaxing background
 			bgLayer1.Initialize(Content, "Texture/bgLayer1", GraphicsDevice.Viewport.Width, -1);
 			bgLayer2.Initialize(Content, "Texture/bgLayer2", GraphicsDevice.Viewport.Width, -2);
 
 			enemyTexture = Content.Load<Texture2D>("Animation/imported goblin clone");
-
-			bossWalk = new Animation();
-			bossAttack = new Animation();
-			bossIdle = new Animation();
-			bossBlast = new Animation();
-			bossSummon = new Animation();
-
-			bossTexture = Content.Load<Texture2D>("Animation/WizardEvil");
-
-			// Initialize the animation with the correct animation information
-			bossWalk.Initialize(bossTexture, Vector2.Zero, 50, 43, 0, 14, 50,Color.White, 1f, true);
-			bossAttack.Initialize(bossTexture, Vector2.Zero, 50, 43, 14, 29, 50,Color.White, 1f, true);
-			bossIdle.Initialize(bossTexture, Vector2.Zero, 50, 43, 13, 14, 50,Color.White, 1f, true);
-			bossBlast.Initialize(bossTexture, Vector2.Zero, 50, 43, 41, 53, 50,Color.White, 1f, true);
-			bossSummon.Initialize(bossTexture, Vector2.Zero, 50, 43, 29, 40, 50,Color.White, 1f, true);
-
-
 
 			projectileTexture = Content.Load<Texture2D>("Texture/laser");
 
@@ -229,28 +188,28 @@ namespace SampleGame.Controller
 				currentGamePadState.DPad.Left == ButtonState.Pressed)
 			{
 				player.Position.X -= playerMoveSpeed;
-				player.playerAnimation = playerRun;
+				player.playerAnimation = player.playerRun;
 			}
 
 			if (currentKeyboardState.IsKeyDown(Keys.Right) ||
 				currentGamePadState.DPad.Right == ButtonState.Pressed)
 			{
 				player.Position.X += playerMoveSpeed;
-				player.playerAnimation = playerRun;
+				player.playerAnimation = player.playerRun;
 			}
 
 			if (currentKeyboardState.IsKeyDown(Keys.Up) ||
 				currentGamePadState.DPad.Up == ButtonState.Pressed)
 			{
 				player.Position.Y -= playerMoveSpeed;
-				player.playerAnimation = playerRun;
+				player.playerAnimation = player.playerRun;
 			}
 
 			if (currentKeyboardState.IsKeyDown(Keys.Down) ||
 				currentGamePadState.DPad.Down == ButtonState.Pressed)
 			{
 				player.Position.Y += playerMoveSpeed;
-				player.playerAnimation = playerRun;
+				player.playerAnimation = player.playerRun;
 			}
 
 			if (currentKeyboardState.IsKeyUp(Keys.Down)
@@ -261,7 +220,7 @@ namespace SampleGame.Controller
 				&& currentKeyboardState.IsKeyUp(Keys.A)
 				&& currentKeyboardState.IsKeyUp(Keys.H))
 			{
-				player.playerAnimation = playerIdle;
+				player.playerAnimation = player.playerIdle;
 			}
 
 
@@ -277,7 +236,7 @@ namespace SampleGame.Controller
 					// Reset our current time
 					previousFireTime = gameTime.TotalGameTime;
 
-					player.playerAnimation = playerBlast;
+					player.playerAnimation = player.playerBlast;
 
 					// Add the projectile, but add it to the front and center of the player
 					AddProjectile(player.Position + new Vector2(player.Width / 2, 0));
@@ -292,7 +251,7 @@ namespace SampleGame.Controller
 			if (currentKeyboardState.IsKeyDown(Keys.W) ||
 				currentGamePadState.DPad.Right == ButtonState.Pressed)
 			{
-				player.playerAnimation = playerAttack;
+				player.playerAnimation = player.playerAttack;
 				vulerable = false;
 			}
 			else
@@ -302,7 +261,7 @@ namespace SampleGame.Controller
 
 			if (currentKeyboardState.IsKeyDown(Keys.H))
 			{
-				player.playerAnimation = playerHeal;
+				player.playerAnimation = player.playerHeal;
 
 				player.Health += 50;
 				if(player.Health > player.HealthMax)
@@ -350,16 +309,11 @@ namespace SampleGame.Controller
 			//Update the player
 			UpdatePlayer(gameTime);
 
-
-			boss.bossAnimation.Update (gameTime);
-
-
+			UpdateEnemies(gameTime);
+	
 			// Update the parallaxing background
 			bgLayer1.Update();
 			bgLayer2.Update();
-
-			UpdateEnemies(gameTime);
-			UpdateBoss(gameTime);
 
 			// Update the collision
 			UpdateCollision();
@@ -382,7 +336,7 @@ namespace SampleGame.Controller
 			// determine if two objects are overlapping
 			Rectangle rectangle1;
 			Rectangle rectangle2;
-			Rectangle rectangle3;
+
 
 			// Only create the rectangle once for the player
 			rectangle1 = new Rectangle ((int)player.Position.X,
@@ -406,7 +360,7 @@ namespace SampleGame.Controller
 					// the enemy damage
 					if (vulerable == true) 
 					{
-						player.Health -= enemies [i].Damage;
+						player.Health -= enemies [i].Damage; //Random.Next(enemies [i].DamageMin, enemies [i].Damage);
 					}
 
 					// Since the enemy collided with the player
@@ -421,32 +375,7 @@ namespace SampleGame.Controller
 						
 				}
 			}
-
-
-				rectangle3 = new Rectangle ((int)boss.Position.X, (int)boss.Position.Y, boss.Width, boss.Height);
 				
-				if (rectangle1.Intersects (rectangle3)) 
-				{
-					// Subtract the health from the player based on
-					// the enemy damage
-					if (vulerable == true) 
-					{
-						player.Health -= boss.Damage;
-					}
-					else 
-					{
-						player.Health -= boss.Damage / 4;
-					}
-					// Since the enemy collided with the player
-					// destroy it
-					boss.Health -= player.PlayerDamage;
-
-					// If the player health is less than zero we died
-					if (player.Health <= 0)
-					{
-						player.Active = false; 
-					}
-				}
 			// Projectile vs Enemy Collision
 			for (int i = 0; i < projectiles.Count; i++)
 			{
@@ -468,16 +397,6 @@ namespace SampleGame.Controller
 						projectiles [i].Active = false;
 					}
 
-				}
-				
-				rectangle3 = new Rectangle((int)boss.Position.X - boss.Width / 2,
-					(int)boss.Position.Y - boss.Height / 2,
-					boss.Width, boss.Height);
-					
-				if (rectangle1.Intersects(rectangle3))
-				{
-					boss.Health -= projectiles[i].Damage;
-					projectiles[i].Active = false;
 				}
 
 
@@ -506,10 +425,6 @@ namespace SampleGame.Controller
 			{
 				enemies[i].Draw(spriteBatch);
 			}
-
-		
-			boss.Draw(spriteBatch);
-			
 
 			// Draw the Projectiles
 			for (int i = 0; i < projectiles.Count; i++)
@@ -551,29 +466,10 @@ namespace SampleGame.Controller
 			Enemy enemy = new Enemy();
 
 			// Initialize the enemy
-			enemy.Initialize(enemyAnimation, position); 
+			enemy.Initialize(enemyAnimation, position, enemy.active, enemy.health, enemy.damageMin, enemy.damage, enemy.enemyMoveSpeed, enemy.worth); 
 
 			// Add the enemy to the active enemies list
 			enemies.Add(enemy);
-		}
-
-		private void AddBoss()
-		{
-			// Create the animation object
-			Animation bossAnimation = new Animation();
-
-			bossWalk.Initialize(bossTexture, Vector2.Zero, 50, 43, 0, 14, 50,Color.White, 1f, true);
-
-			bossAnimation = bossIdle;
-			// Randomly generate the position of the enemy
-			Vector2 position = new Vector2(GraphicsDevice.Viewport.Width +bossTexture.Width / 2, random.Next(100, GraphicsDevice.Viewport.Height -100));
-
-			// Create an enemy
-			Boss boss = new Boss();
-
-			// Initialize the enemy
-			boss.Initialize(bossAnimation, position); 
-			
 		}
 
 		private void AddProjectile(Vector2 position)
@@ -600,12 +496,11 @@ namespace SampleGame.Controller
 		private void UpdateEnemies(GameTime gameTime)
 		{
 			// Spawn a new enemy enemy every 1.5 seconds
-			if (gameTime.TotalGameTime - previousSpawnTime > enemySpawnTime && level == 1) 
+			if (gameTime.TotalGameTime - previousSpawnTime > enemySpawnTime) 
 			{
 				previousSpawnTime = gameTime.TotalGameTime;
 
-				// Add an Enemy
-				AddBoss();
+				AddEnemy ();
 			}
 
 			// Update the Enemies
@@ -642,40 +537,7 @@ namespace SampleGame.Controller
 			}
 
 		}
-
-		private void UpdateBoss(GameTime gameTime)
-		{
 			
-				boss.Update (gameTime);
-
-				if (boss.Active == false) 
-				{
-					if (boss.Health <= 0) 
-					{
-
-						if (vulerable == true) 
-						{
-							// Add an explosion
-
-
-							//Add to the player's score
-							score += boss.Worth;
-
-							player.Health += player.Health / 20;
-							if (player.Health > player.HealthMax) 
-							{
-								player.Health = player.HealthMax;
-							}
-
-						}
-
-						AddExplosion (boss.Position);
-
-					}
-				//boss.RemoveAt (i);
-				} 
-		}
-	
 
 		private void AddExplosion(Vector2 position)
 		{
